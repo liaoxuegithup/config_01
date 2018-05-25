@@ -24,17 +24,20 @@ def setup_log(level):
 
 db = SQLAlchemy()
 def fenzhang(config_name):
+    # 根据创建app时的配置环境，加载日志等级
+    setup_log(config_environment_app[config_name].LOG_LEVE)
     app = Flask(__name__)
     app.config.from_object(config_environment_app[config_name])
-    db.init_app(config_environment_app[config_name])
+    db.init_app(app)
 
     # 以后都是以类的方式封装，方便修改和管理
     # 迁移管理和app相关联
-    str = StrictRedis(host = config_environment_app[config_name].REDIS_HOST,post = config_environment_app["pro"].REDIS_POST)
+    str = StrictRedis(host = config_environment_app[config_name].REDIS_HOST,port= config_environment_app[config_name].REDIS_POST)
     # 将redis的地址和端口号放到app的配置文件中
     # 那个环境下需要需要配置不同的redis,链接不同redis数据库,但是是否组要在不同环境下更改redis的ip吗
     # 开启CSRF保护
     CSRFProtect(app)
+    Session(app)
 # 需要生成密钥
     return app
 # 问题是db怎样传过去

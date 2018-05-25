@@ -10,7 +10,7 @@ class Config(object):
     REDIS_POST = 6379
     SESSION_TYPE = "redis"
 #   设置SESSION设置在redis库中
-    SESSION_REDIS = StrictRedis(host= REDIS_HOST)
+    SESSION_REDIS = StrictRedis(host= REDIS_HOST,port=REDIS_POST)
 #     指定Session存储到后端的位置c,
     SESSION_USE_SIGNR = True
 #     开启31天
@@ -22,7 +22,7 @@ class Config(object):
 class Develop(Config):
     # 开发环境基本基于config
     LOG_LEVE = logging.DEBUG
-    pass
+
 
 class Production(Config):
     # 生产环境将所有代码封装的过程,不需要测试
@@ -31,6 +31,7 @@ class Production(Config):
     LOG_LEVE = logging.DEBUG
 class TestEnvironment(Config):
     # 测试环境TestCase里面封装了debug
+    TESTING = True
     LOG_LEVE = logging.DEBUG
     SQLALCHEMY_DATABASE_URI = "mysql://root:mysql@127.0.0.1:3306/config_test_01"
     # 修改父类的配置信息后,还需要保证在运行的时候app.config里面的配置信息在改变,即运行生产环境就放生产环境的,开发就放开发的配置信息

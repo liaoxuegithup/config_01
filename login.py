@@ -2,14 +2,8 @@
 # 给项目立项，立项是以manage运行
 from flask_script import Manager
 from flask_migrate import Migrate,MigrateCommand
-
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from redis import StrictRedis
-from flask_wtf.csrf import CSRFProtect
-from flask_session import Session
 from config import config_environment_app
-from info import db
+from info import db,fenzhang
 # 立项以后给项目增加配置文件
 # 然后集成mysql数据库和redis数据库
 # 两者性能不同，mysql性能比较差，redis一般放在内存和磁盘
@@ -49,21 +43,13 @@ from info import db
 # # 开启CSRF保护
 # CSRFProtect(app)
 # # 需要生成密钥
-app = config_environment_app["pro"]
+app = fenzhang("pro")
 # 在项目运行入口只需要每个环境的配置信息,在项目入口需要启动信息,所以这边不需要,环境和启动信息相关联的配置信息
 manager  = Manager(app)
 # 将app和数据库和脚本命令相关联
 Migrate(app,db)
 # 将脚本命令当中的MigrateCommand放入管理器
 manager.add_command("db",MigrateCommand)
-
-
-
-
-
-
-
-
 
 @app.route('/')
 def index():
