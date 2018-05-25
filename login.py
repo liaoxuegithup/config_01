@@ -1,4 +1,4 @@
-from info import app,db
+from info import fenzhang,db
 # 给项目立项，立项是以manage运行
 from flask_script import Manager
 from flask_migrate import Migrate,MigrateCommand
@@ -47,9 +47,9 @@ from flask_session import Session
 # # 开启CSRF保护
 # CSRFProtect(app)
 # # 需要生成密钥
-manager  = Manager(app)
+manager  = Manager(fenzhang)
 # 将app和数据库和脚本命令相关联
-Migrate(app,db)
+Migrate(fenzhang,db)
 # 将脚本命令当中的MigrateCommand放入管理器
 manager.add_command("db",MigrateCommand)
 

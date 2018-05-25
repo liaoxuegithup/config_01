@@ -19,7 +19,7 @@ class Config(object):
 # 需要定义三个环境的目的是不同环境在整个项目中配置不同,基于config
 class Develop(Config):
     # 开发环境基本基于config
-    SQLALCHEMY_DATABASE_URI = "mysql://root:mysql@127.0.0.1:3306/config_01"
+
     pass
 
 class Production(Config):
@@ -30,3 +30,5 @@ class Production(Config):
 class TestEnvironment(TestCase):
     # 测试环境TestCase里面封装了debug
     SQLALCHEMY_DATABASE_URI = "mysql://root:mysql@127.0.0.1:3306/config_test_01"
+    # 修改父类的配置信息后,还需要保证在运行的时候app.config里面的配置信息在改变,即运行生产环境就放生产环境的,开发就放开发的配置信息
+    # 所以在init里面app的参数是变动的,可以以传参的方式向app里面传变量因为是向app中传不同的参数,app不能动,所以需要将app封装起来
