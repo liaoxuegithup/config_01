@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from redis import StrictRedis
 from flask_wtf.csrf import CSRFProtect
 from flask_session import Session
+from config import Config
 # 立项以后给项目增加配置文件
 # 然后集成mysql数据库和redis数据库
 # 两者性能不同，mysql性能比较差，redis一般放在内存和磁盘
@@ -16,20 +17,20 @@ from flask_session import Session
 #flask中有可扩展的FLak_Session,可将session存储到redis
 # Session的密钥可以在Session里面是用/CSRF用
 # 在Session底层是可以通过配置文件中config[key]取值
-class Config(object):
-    DEBUG = True
-    SQLALCHEMY_DATABASE_URI = "mysql://root:mysql@127.0.0.1:3306/config_01"
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SECRET_KEY = "fkdfkd"
-    REDIS_HOST = "127.0.0.1"
-    REDIS_POST = 6379
-    SESSION_TYPE = "redis"
-#   设置SESSION设置在redis库中
-    SESSION_REDIS = StrictRedis(host= REDIS_HOST,post =  REDIS_HOST)
-#     指定Session存储到后端的位置c
-    SESSION_USE_SIGNR = True
-#     开启31天
-    PERMANENT_SESSION_LIFETIME = 60*60*24
+# class Config(object):
+#     DEBUG = True
+#     SQLALCHEMY_DATABASE_URI = "mysql://root:mysql@127.0.0.1:3306/config_01"
+#     SQLALCHEMY_TRACK_MODIFICATIONS = False
+#     SECRET_KEY = "fkdfkd"
+#     REDIS_HOST = "127.0.0.1"
+#     REDIS_POST = 6379
+#     SESSION_TYPE = "redis"
+# #   设置SESSION设置在redis库中
+#     SESSION_REDIS = StrictRedis(host= REDIS_HOST,post =  REDIS_HOST)
+# #     指定Session存储到后端的位置c
+#     SESSION_USE_SIGNR = True
+# #     开启31天
+#     PERMANENT_SESSION_LIFETIME = 60*60*24
 #     设置时间
 
 
