@@ -7,7 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from redis import StrictRedis
 from flask_wtf.csrf import CSRFProtect
 from flask_session import Session
-from config import Config
+
 # 立项以后给项目增加配置文件
 # 然后集成mysql数据库和redis数据库
 # 两者性能不同，mysql性能比较差，redis一般放在内存和磁盘
