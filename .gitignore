@@ -9,7 +9,7 @@ __pycache__/
 .idea/misc.xml
 .idea/modules.xml
 .idea/workspace.xml
-
+logs.log*
 # Distribution / packaging
 .Python
 build/
