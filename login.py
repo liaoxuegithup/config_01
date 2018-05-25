@@ -1,7 +1,8 @@
-from flask import Flask
+from info import app,db
 # 给项目立项，立项是以manage运行
 from flask_script import Manager
 from flask_migrate import Migrate,MigrateCommand
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from redis import StrictRedis
 from flask_wtf.csrf import CSRFProtect
@@ -36,11 +37,16 @@ from config import Config
 
 # 给app添加配置文件
 
-app = Flask(__name__)
-app.config.from_object(Config)
-db = SQLAlchemy(app)
-# 以后都是以类的方式封装，方便修改和管理
-# 迁移管理和app相关联
+# app = Flask(__name__)
+# app.config.from_object(Config)
+# db = SQLAlchemy(app)
+# # 以后都是以类的方式封装，方便修改和管理
+# # 迁移管理和app相关联
+# str = StrictRedis(host = Config.HOST,port=Config.POST)
+# # 将redis的地址和端口号放到app的配置文件中
+# # 开启CSRF保护
+# CSRFProtect(app)
+# # 需要生成密钥
 manager  = Manager(app)
 # 将app和数据库和脚本命令相关联
 Migrate(app,db)
@@ -49,11 +55,7 @@ manager.add_command("db",MigrateCommand)
 
 
 
-str = StrictRedis(host = Config.HOST,port=Config.POST)
-# 将redis的地址和端口号放到app的配置文件中
-# 开启CSRF保护
-CSRFProtect(app)
-# 需要生成密钥
+
 
 
 
