@@ -1,5 +1,6 @@
 from redis import StrictRedis
 from unittest import TestCase
+
 class Config(object):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = "mysql://root:mysql@127.0.0.1:3306/config_01"
@@ -32,3 +33,9 @@ class TestEnvironment(TestCase):
     SQLALCHEMY_DATABASE_URI = "mysql://root:mysql@127.0.0.1:3306/config_test_01"
     # 修改父类的配置信息后,还需要保证在运行的时候app.config里面的配置信息在改变,即运行生产环境就放生产环境的,开发就放开发的配置信息
     # 所以在init里面app的参数是变动的,可以以传参的方式向app里面传变量因为是向app中传不同的参数,app不能动,所以需要将app封装起来
+    # 可以使用basconvert字典的形式,将类名传过去info那边可以根据以建取值类名的方式,执行方法,basconvert里封装了类名可以调用对应的属性
+config_environment_app = {
+    'dev':Develop,
+    'pro' :Production,
+    'test':TestEnvironment,
+}

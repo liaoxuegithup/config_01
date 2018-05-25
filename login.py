@@ -2,6 +2,7 @@ from info import fenzhang,db
 # 给项目立项，立项是以manage运行
 from flask_script import Manager
 from flask_migrate import Migrate,MigrateCommand
+from config import config_environment_app
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from redis import StrictRedis
@@ -47,9 +48,11 @@ from flask_session import Session
 # # 开启CSRF保护
 # CSRFProtect(app)
 # # 需要生成密钥
-manager  = Manager(fenzhang)
+app = config_environment_app["pro"]
+# 在项目运行入口只需要每个环境的配置信息,在项目入口需要启动信息,所以这边不需要,环境和启动信息相关联的配置信息
+manager  = Manager(app)
 # 将app和数据库和脚本命令相关联
-Migrate(fenzhang,db)
+Migrate(app,db)
 # 将脚本命令当中的MigrateCommand放入管理器
 manager.add_command("db",MigrateCommand)
 
@@ -59,7 +62,7 @@ manager.add_command("db",MigrateCommand)
 
 
 
-@app.route('/index')
+@app.route('/')
 def index():
     return "index page"
 
